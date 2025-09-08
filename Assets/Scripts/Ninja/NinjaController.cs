@@ -7,6 +7,7 @@ public class NinjaController : MonoBehaviour
 {
     private NinjaState currentState;
     private Dictionary<State, NinjaState> stateMap;
+    private State _currentStateEnum; 
     public enum State
     {
         idleState,
@@ -18,14 +19,17 @@ public class NinjaController : MonoBehaviour
     }
     public State CurrentState
     {
-        get { return CurrentState; }
+        get { return _currentStateEnum; }
         private set
         {
-            CurrentState = value;
+            _currentStateEnum = value;
             currentState = stateMap[value];
         }
-    }    
-void Awake()
+    }
+    
+    [SerializeField] private Animator animator;
+
+    void Awake()
     {
         stateMap = new Dictionary<State, NinjaState>()
         {
