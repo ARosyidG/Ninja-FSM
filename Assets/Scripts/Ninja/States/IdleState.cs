@@ -13,7 +13,7 @@ namespace Ninja.FSM
 
         public override void Execute()
         {
-            // Logic for when the ninja is hurt (e.g., play hurt animation)
+            // if (ninjaController.)
         }
 
         public override void Exit()
