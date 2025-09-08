@@ -4,6 +4,8 @@ namespace Ninja.FSM
 {
     public class AttackState : NinjaState
     {
+        public AttackState(NinjaController ninjaController) : base(ninjaController){}
+
         public override void Enter()
         {
             Debug.Log("Ninja is attacking.");

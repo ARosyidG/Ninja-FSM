@@ -3,6 +3,8 @@ namespace Ninja.FSM
 {
     public class HurtState : NinjaState
     {
+        public HurtState(NinjaController ninjaController) : base(ninjaController){}
+
         public override void Enter()
         {
             Debug.Log("Ninja is hurt.");

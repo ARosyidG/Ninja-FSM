@@ -4,6 +4,8 @@ namespace Ninja.FSM
 {
     public class JumpState : NinjaState
     {
+        public JumpState(NinjaController ninjaController) : base(ninjaController){}
+
         public override void Enter()
         {
             Debug.Log("Ninja is Jumping.");

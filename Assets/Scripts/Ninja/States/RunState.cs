@@ -4,6 +4,8 @@ namespace Ninja.FSM
 {
     public class RunState : NinjaState
     {
+        public RunState(NinjaController ninjaController) : base(ninjaController){}
+
         public override void Enter()
         {
             Debug.Log("Ninja is Running.");

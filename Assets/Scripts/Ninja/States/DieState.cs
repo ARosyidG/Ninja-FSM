@@ -3,6 +3,8 @@ namespace Ninja.FSM
 {
     public class DieState : NinjaState
     {
+        public DieState(NinjaController ninjaController) : base(ninjaController){}
+
         public override void Enter()
         {
             Debug.Log("Ninja has died.");

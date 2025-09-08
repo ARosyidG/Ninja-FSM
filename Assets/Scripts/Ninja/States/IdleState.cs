@@ -4,6 +4,8 @@ namespace Ninja.FSM
 {
     public class IdleState : NinjaState
     {
+        public IdleState(NinjaController ninjaController) : base(ninjaController){}
+
         public override void Enter()
         {
             Debug.Log("Ninja is idling.");
