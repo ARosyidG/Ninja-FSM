@@ -4,8 +4,6 @@ namespace Ninja.FSM
 {
     public class JumpState : NinjaState
     {
-        private bool isJumping = false;
-
         public JumpState(NinjaController ninjaController) : base(ninjaController) { }
         public override void Enter()
         {
@@ -15,14 +13,7 @@ namespace Ninja.FSM
 
         public override void Execute()
         {
-            // set isJumping when the character off the Ground
-            if (!isJumping && !ninjaController.CheckGrounded())
-            {
-                isJumping = true;
-            }
-            if (!isJumping) return;
-
-            if (ninjaController.CheckGrounded())
+            if (ninjaController.getRBVelocity().y <= 0 && ninjaController.CheckGrounded())
             {
                 ninjaController.ChangeState(NinjaController.State.idleState);
             }
@@ -37,7 +28,6 @@ namespace Ninja.FSM
         public override void Exit()
         {
             ninjaController.animator.SetBool("isJumping", false);
-            isJumping = false;
         }
     }
 }
