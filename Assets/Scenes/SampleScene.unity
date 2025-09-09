@@ -1112,7 +1112,7 @@ MonoBehaviour:
   healthBar: {fileID: 319500382}
   rb: {fileID: 1277359610}
   moveSpeed: 15
-  jumpForce: 50
+  jumpForce: 75
   groundCheck: {fileID: 506692826}
   groundLayer:
     serializedVersion: 2
