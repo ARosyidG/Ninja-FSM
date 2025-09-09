@@ -25,6 +25,7 @@ namespace Ninja.FSM
             if (ninjaController.ninjaInputReader.Attack)
             {
                 ninjaController.ChangeState(NinjaController.State.attackState);
+                return;
             }
             ninjaController.Move(moveDirection);
             ninjaController.Flip(moveDirection);

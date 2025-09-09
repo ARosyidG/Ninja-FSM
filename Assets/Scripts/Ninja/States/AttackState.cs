@@ -9,6 +9,7 @@ namespace Ninja.FSM
         public override void Enter()
         {
             ninjaController.animator.SetTrigger("Attack");
+            ninjaController.Move(0f);
         }
 
         public override void Execute()
