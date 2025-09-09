@@ -29,5 +29,9 @@ public class NinjaInputReader : MonoBehaviour
         {
             Attack = true;
         }
+        if (context.canceled)
+        {
+            Attack = false;
+        }
     }
 }

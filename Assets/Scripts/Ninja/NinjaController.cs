@@ -62,6 +62,7 @@ public class NinjaController : MonoBehaviour
     void Update()
     {
         currentState?.Execute();
+        // Debug.Log($"velocity {rb.linearVelocity}");
         // Debug.Log(CheckGrounded());
     }
 
@@ -107,5 +108,9 @@ public class NinjaController : MonoBehaviour
     public Vector2 getRBVelocity()
     {
         return rb.linearVelocity;
+    }
+    public bool isPlaying(String stateName)
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
     }
 }

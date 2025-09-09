@@ -22,10 +22,10 @@ namespace Ninja.FSM
             {
                 ninjaController.ChangeState(NinjaController.State.jumpState);
             }
-            // if (ninjaController.ninjaInputReader.Attack)
-            // {
-            //     ninjaController.ChangeState(NinjaController.State.attackState);
-            // }
+            if (ninjaController.ninjaInputReader.Attack)
+            {
+                ninjaController.ChangeState(NinjaController.State.attackState);
+            }
             ninjaController.Move(moveDirection);
             ninjaController.Flip(moveDirection);
         }

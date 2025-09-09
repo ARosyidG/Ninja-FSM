@@ -8,17 +8,22 @@ namespace Ninja.FSM
 
         public override void Enter()
         {
-            Debug.Log("Ninja is attacking.");
+            ninjaController.animator.SetTrigger("Attack");
         }
 
         public override void Execute()
         {
-            // Logic for when the ninja is attacking (e.g., play attack animation)
+            if (ninjaController.isPlaying("Attack")) return;
+            if (ninjaController.ninjaInputReader.MoveDirection == 0.0f)
+            {
+                ninjaController.ChangeState(NinjaController.State.idleState);
+            }
+            else
+            {
+                ninjaController.ChangeState(NinjaController.State.runState);
+            }
         }
 
-        public override void Exit()
-        {
-            // Logic for exiting the attack state, if applicable
-        }
+        public override void Exit(){}
     }
 }

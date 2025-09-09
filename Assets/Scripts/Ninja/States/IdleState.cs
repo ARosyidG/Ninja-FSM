@@ -17,14 +17,14 @@ namespace Ninja.FSM
             {
                 ninjaController.ChangeState(NinjaController.State.runState);
             }
-            if (ninjaController.ninjaInputReader.Jump)
+            if (ninjaController.ninjaInputReader.Jump && ninjaController.CheckGrounded())
             {
                 ninjaController.ChangeState(NinjaController.State.jumpState);
             }
-            // if (ninjaController.ninjaInputReader.Attack)
-            // {
-            //     ninjaController.ChangeState(NinjaController.State.attackState);
-            // }
+            if (ninjaController.ninjaInputReader.Attack)
+            {
+                ninjaController.ChangeState(NinjaController.State.attackState);
+            }
         }
 
         public override void Exit(){}
