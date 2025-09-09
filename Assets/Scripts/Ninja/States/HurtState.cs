@@ -3,21 +3,24 @@ namespace Ninja.FSM
 {
     public class HurtState : NinjaState
     {
-        public HurtState(NinjaController ninjaController) : base(ninjaController){}
+        private float timer;
+        private Vector2 direction;
+        public HurtState(NinjaController ninjaController) : base(ninjaController) { }
 
         public override void Enter()
         {
-            Debug.Log("Ninja is hurt.");
+            ninjaController.animator.SetTrigger("Hurt");
+            timer = ninjaController.knockbackDuration;
+            ninjaController.Knockback();
         }
 
         public override void Update()
         {
-            // Logic for when the ninja is hurt (e.g., play hurt animation)
+            timer -= Time.deltaTime;
+            if (timer > 0) return;
+            ninjaController.ChangeState(NinjaController.State.jumpState);
         }
 
-        public override void Exit()
-        {
-            // Logic for exiting the hurt state, if applicable
-        }
+        public override void Exit(){}
     }
 }

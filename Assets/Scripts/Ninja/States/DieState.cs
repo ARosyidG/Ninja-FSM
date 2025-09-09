@@ -7,7 +7,7 @@ namespace Ninja.FSM
 
         public override void Enter()
         {
-            Debug.Log("Ninja has died.");
+            ninjaController.animator.SetTrigger("Die");
         }
 
         public override void Update()

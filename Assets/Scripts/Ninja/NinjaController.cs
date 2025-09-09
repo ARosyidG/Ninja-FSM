@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Ninja.FSM;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class NinjaController : MonoBehaviour
+public class NinjaController : MonoBehaviour, IDamageable
 {
     private NinjaState currentState;
     private Dictionary<State, NinjaState> stateMap;
@@ -27,6 +28,10 @@ public class NinjaController : MonoBehaviour
         }
     }
 
+    public bool IsDead { get; private set; }
+    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int currentHealth;
+
     public Animator animator;
     public NinjaInputReader ninjaInputReader;
 
@@ -40,6 +45,10 @@ public class NinjaController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckRadius = 0.2f;
 
+    [Header("Knockback Settings")]
+    public float knockbackForce = 100f;
+    public float knockbackDuration = 1f;
+    public Vector2 knockbackDirection;
 
     void Awake()
     {
@@ -58,6 +67,7 @@ public class NinjaController : MonoBehaviour
     {
         // ChangeState(State.idleState);
         CurrentState = State.idleState;
+        currentHealth = maxHealth;
     }
     void Update()
     {
@@ -113,4 +123,31 @@ public class NinjaController : MonoBehaviour
     {
         return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
     }
+
+    public void TakeDamage(int amount, GameObject from)
+    {
+        if (IsDead) return;
+        
+        currentHealth -= amount;
+        Debug.Log($"currentHealth {currentHealth}");
+
+        knockbackDirection = (transform.position - from.transform.position).normalized;
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            ChangeState(State.dieState);
+        }
+        else
+        {
+            ChangeState(State.hurtState);
+        }
+    }
+    public void Knockback()
+    {
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode2D.Impulse);
+    }
+
+    
 }
