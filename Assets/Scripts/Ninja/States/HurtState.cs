@@ -9,7 +9,7 @@ namespace Ninja.FSM
 
         public override void Enter()
         {
-            ninjaController.animator.SetTrigger("Hurt");
+            ninjaController.animator.SetBool("isHurt", true);
             timer = ninjaController.knockbackDuration;
             ninjaController.Knockback();
         }
@@ -21,6 +21,9 @@ namespace Ninja.FSM
             ninjaController.ChangeState(NinjaController.State.jumpState);
         }
 
-        public override void Exit(){}
+        public override void Exit()
+        {
+            ninjaController.animator.SetBool("isHurt", false);
+        }
     }
 }

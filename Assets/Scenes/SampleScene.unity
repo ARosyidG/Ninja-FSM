@@ -573,15 +573,15 @@ MonoBehaviour:
   animator: {fileID: 1898774735}
   ninjaInputReader: {fileID: 1277359612}
   rb: {fileID: 1277359610}
-  moveSpeed: 10
+  moveSpeed: 15
   jumpForce: 50
   groundCheck: {fileID: 506692826}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   groundCheckRadius: 0.2
-  knockbackForce: 100
-  knockbackDuration: 1
+  knockbackForce: 50
+  knockbackDuration: 0.5
   knockbackDirection: {x: 0, y: 0}
 --- !u!114 &1277359612
 MonoBehaviour:

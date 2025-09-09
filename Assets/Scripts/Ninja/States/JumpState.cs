@@ -4,6 +4,9 @@ namespace Ninja.FSM
 {
     public class JumpState : NinjaState
     {
+
+        float maxGravity = 10.0f;
+        float baseGravity = 1.0f;
         public JumpState(NinjaController ninjaController) : base(ninjaController) { }
         public override void Enter()
         {
@@ -16,6 +19,12 @@ namespace Ninja.FSM
             if (ninjaController.getRBVelocity().y <= 0 && ninjaController.CheckGrounded())
             {
                 ninjaController.ChangeState(NinjaController.State.idleState);
+                return;
+            }
+            if (ninjaController.getRBVelocity().y < 0)
+            {
+                float gravity = Mathf.Min(ninjaController.getGravity() * 1.5f, maxGravity);
+                ninjaController.setGravity(gravity);
             }
 
             ninjaController.Move(ninjaController.ninjaInputReader.MoveDirection);
@@ -28,6 +37,7 @@ namespace Ninja.FSM
         public override void Exit()
         {
             ninjaController.animator.SetBool("isJumping", false);
+            ninjaController.setGravity(baseGravity);
         }
     }
 }

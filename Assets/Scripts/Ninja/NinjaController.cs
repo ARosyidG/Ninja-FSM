@@ -119,6 +119,11 @@ public class NinjaController : MonoBehaviour, IDamageable
     {
         return rb.linearVelocity;
     }
+    public void setRBVelocity(Vector2 velocity)
+    {
+        rb.linearVelocity = velocity;
+    }
+
     public bool isPlaying(String stateName)
     {
         return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
@@ -127,7 +132,7 @@ public class NinjaController : MonoBehaviour, IDamageable
     public void TakeDamage(int amount, GameObject from)
     {
         if (IsDead) return;
-        
+
         currentHealth -= amount;
         Debug.Log($"currentHealth {currentHealth}");
 
@@ -149,5 +154,12 @@ public class NinjaController : MonoBehaviour, IDamageable
         rb.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode2D.Impulse);
     }
 
-    
+    public float getGravity()
+    {
+        return rb.gravityScale;
+    }
+    public void setGravity(float gravity)
+    {
+        rb.gravityScale = gravity;
+    }
 }
