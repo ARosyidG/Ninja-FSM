@@ -11,7 +11,7 @@ namespace Ninja.FSM
             ninjaController.animator.SetFloat("xVelocity", 1);
         }
 
-        public override void Execute()
+        public override void Update()
         {
             float moveDirection = ninjaController.ninjaInputReader.MoveDirection;
             if (moveDirection == 0.0f)

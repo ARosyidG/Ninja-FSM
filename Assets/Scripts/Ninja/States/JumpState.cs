@@ -11,7 +11,7 @@ namespace Ninja.FSM
             ninjaController.Jump();
         }
 
-        public override void Execute()
+        public override void Update()
         {
             if (ninjaController.getRBVelocity().y <= 0 && ninjaController.CheckGrounded())
             {

@@ -10,7 +10,7 @@ namespace Ninja.FSM
             Debug.Log("Ninja is hurt.");
         }
 
-        public override void Execute()
+        public override void Update()
         {
             // Logic for when the ninja is hurt (e.g., play hurt animation)
         }

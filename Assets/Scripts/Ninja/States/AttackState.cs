@@ -12,7 +12,7 @@ namespace Ninja.FSM
             ninjaController.Move(0f);
         }
 
-        public override void Execute()
+        public override void Update()
         {
             if (ninjaController.isPlaying("Attack")) return;
             if (ninjaController.ninjaInputReader.MoveDirection == 0.0f)

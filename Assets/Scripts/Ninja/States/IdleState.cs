@@ -11,7 +11,7 @@ namespace Ninja.FSM
             Debug.Log("enter Idle State");
         }
 
-        public override void Execute()
+        public override void Update()
         {
             if (ninjaController.ninjaInputReader.MoveDirection != 0.0f)
             {

@@ -10,7 +10,7 @@ namespace Ninja.FSM
             Debug.Log("Ninja has died.");
         }
 
-        public override void Execute()
+        public override void Update()
         {
             // Logic for when the ninja is dead (e.g., play death animation)
         }

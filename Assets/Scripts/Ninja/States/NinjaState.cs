@@ -9,6 +9,6 @@ public abstract class NinjaState : IState
         this.ninjaController = ninjaController;
     }
     public abstract void Enter();
-    public abstract void Execute();
+    public abstract void Update();
     public abstract void Exit();
 }

@@ -61,7 +61,7 @@ public class NinjaController : MonoBehaviour
     }
     void Update()
     {
-        currentState?.Execute();
+        currentState?.Update();
         // Debug.Log($"velocity {rb.linearVelocity}");
         // Debug.Log(CheckGrounded());
     }
