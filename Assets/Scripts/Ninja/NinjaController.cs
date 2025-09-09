@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ninja.FSM;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NinjaController : MonoBehaviour, IDamageable
 {
@@ -27,14 +28,17 @@ public class NinjaController : MonoBehaviour, IDamageable
             currentState = stateMap[value];
         }
     }
-
-    public bool IsDead { get; private set; }
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth;
-
     public Animator animator;
     public NinjaInputReader ninjaInputReader;
 
+    public bool IsDead { get; private set; }
+
+    [Header("Health")]
+    [SerializeField] private float maxHealth = 100;
+    [SerializeField] private float currentHealth;
+    [SerializeField] private HealthBar healthBar;
+
+    [Header("Movement")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private float jumpForce = 10;
@@ -68,6 +72,7 @@ public class NinjaController : MonoBehaviour, IDamageable
         // ChangeState(State.idleState);
         CurrentState = State.idleState;
         currentHealth = maxHealth;
+        healthBar.setMaxHealth(maxHealth);
     }
     void Update()
     {
@@ -133,8 +138,7 @@ public class NinjaController : MonoBehaviour, IDamageable
     {
         if (IsDead) return;
 
-        currentHealth -= amount;
-        Debug.Log($"currentHealth {currentHealth}");
+        setHealth(currentHealth - amount);
 
         knockbackDirection = (transform.position - from.transform.position).normalized;
 
@@ -147,6 +151,11 @@ public class NinjaController : MonoBehaviour, IDamageable
         {
             ChangeState(State.hurtState);
         }
+    }
+    private void setHealth(float value)
+    {
+        currentHealth = value;
+        healthBar.setHealth(currentHealth);
     }
     public void Knockback()
     {
