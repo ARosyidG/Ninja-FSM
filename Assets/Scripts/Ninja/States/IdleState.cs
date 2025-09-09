@@ -8,17 +8,25 @@ namespace Ninja.FSM
 
         public override void Enter()
         {
-            Debug.Log("Ninja is idling.");
+            Debug.Log("enter Idle State");
         }
 
         public override void Execute()
         {
-            // if (ninjaController.)
+            if (ninjaController.ninjaInputReader.MoveDirection != 0.0f)
+            {
+                ninjaController.ChangeState(NinjaController.State.runState);
+            }
+            if (ninjaController.ninjaInputReader.Jump)
+            {
+                ninjaController.ChangeState(NinjaController.State.jumpState);
+            }
+            // if (ninjaController.ninjaInputReader.Attack)
+            // {
+            //     ninjaController.ChangeState(NinjaController.State.attackState);
+            // }
         }
 
-        public override void Exit()
-        {
-            // Logic for exiting the hurt state, if applicable
-        }
+        public override void Exit(){}
     }
 }

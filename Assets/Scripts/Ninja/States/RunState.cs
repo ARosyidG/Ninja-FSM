@@ -8,17 +8,31 @@ namespace Ninja.FSM
 
         public override void Enter()
         {
-            Debug.Log("Ninja is Running.");
+            ninjaController.animator.SetFloat("xVelocity", 1);
         }
 
         public override void Execute()
         {
-            // Logic for when the ninja is hurt (e.g., play hurt animation)
+            float moveDirection = ninjaController.ninjaInputReader.MoveDirection;
+            if (moveDirection == 0.0f)
+            {
+                ninjaController.ChangeState(NinjaController.State.idleState);
+            }
+            if (ninjaController.ninjaInputReader.Jump)
+            {
+                ninjaController.ChangeState(NinjaController.State.jumpState);
+            }
+            // if (ninjaController.ninjaInputReader.Attack)
+            // {
+            //     ninjaController.ChangeState(NinjaController.State.attackState);
+            // }
+            ninjaController.Move(moveDirection);
+            ninjaController.Flip(moveDirection);
         }
 
         public override void Exit()
         {
-            // Logic for exiting the hurt state, if applicable
+            ninjaController.animator.SetFloat("xVelocity", 0);
         }
     }
 }

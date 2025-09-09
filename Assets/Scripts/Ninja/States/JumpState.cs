@@ -4,21 +4,40 @@ namespace Ninja.FSM
 {
     public class JumpState : NinjaState
     {
-        public JumpState(NinjaController ninjaController) : base(ninjaController){}
+        private bool isJumping = false;
 
+        public JumpState(NinjaController ninjaController) : base(ninjaController) { }
         public override void Enter()
         {
-            Debug.Log("Ninja is Jumping.");
+            ninjaController.animator.SetBool("isJumping", true);
+            ninjaController.Jump();
         }
 
         public override void Execute()
         {
-            // Logic for when the ninja is hurt (e.g., play hurt animation)
+            // set isJumping when the character off the Ground
+            if (!isJumping && !ninjaController.CheckGrounded())
+            {
+                isJumping = true;
+            }
+            if (!isJumping) return;
+
+            if (ninjaController.CheckGrounded())
+            {
+                ninjaController.ChangeState(NinjaController.State.idleState);
+            }
+
+            ninjaController.Move(ninjaController.ninjaInputReader.MoveDirection);
+            ninjaController.Flip(ninjaController.ninjaInputReader.MoveDirection);
+
+            float yVelocity = ninjaController.getRBVelocity().y;
+            ninjaController.animator.SetFloat("yVelocity", yVelocity); 
         }
 
         public override void Exit()
         {
-            // Logic for exiting the hurt state, if applicable
+            ninjaController.animator.SetBool("isJumping", false);
+            isJumping = false;
         }
     }
 }

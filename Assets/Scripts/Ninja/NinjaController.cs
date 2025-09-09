@@ -7,7 +7,7 @@ public class NinjaController : MonoBehaviour
 {
     private NinjaState currentState;
     private Dictionary<State, NinjaState> stateMap;
-    private State _currentStateEnum; 
+    private State _currentStateEnum;
     public enum State
     {
         idleState,
@@ -26,8 +26,20 @@ public class NinjaController : MonoBehaviour
             currentState = stateMap[value];
         }
     }
-    
-    [SerializeField] private Animator animator;
+
+    public Animator animator;
+    public NinjaInputReader ninjaInputReader;
+
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private float moveSpeed = 5;
+    [SerializeField] private float jumpForce = 10;
+
+
+    [Header("Ground Check")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+
 
     void Awake()
     {
@@ -44,10 +56,16 @@ public class NinjaController : MonoBehaviour
 
     void Start()
     {
-        changeState(State.idleState);
+        // ChangeState(State.idleState);
+        CurrentState = State.idleState;
+    }
+    void Update()
+    {
+        currentState?.Execute();
+        // Debug.Log(CheckGrounded());
     }
 
-    void changeState(State newState)
+    public void ChangeState(State newState)
     {
         if (newState == CurrentState) return;
         if (!stateMap.ContainsKey(newState))
@@ -58,5 +76,36 @@ public class NinjaController : MonoBehaviour
         currentState?.Exit();
         CurrentState = newState;
         currentState.Enter();
+        Debug.Log($"state change {newState}");
+    }
+    public void Move(float direction)
+    {
+        rb.linearVelocity = new Vector2(direction * moveSpeed, rb.linearVelocity.y);
+    }
+    public void Flip(float direction)
+    {
+        if (direction > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (direction < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+
+    public void Jump()
+    {
+        rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+
+    }
+    public bool CheckGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
+    public Vector2 getRBVelocity()
+    {
+        return rb.linearVelocity;
     }
 }
